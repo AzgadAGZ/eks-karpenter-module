@@ -11,7 +11,5 @@ module "eks_blueprints_addons" {
   enable_metrics_server                  = true
   enable_cert_manager                    = true
 
-  tags = {
-    Environment = "dev"
-  }
+  tags = var.tags
 }
