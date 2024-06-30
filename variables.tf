@@ -121,6 +121,7 @@ variable "tags" {
 }
 
 variable "cluster_additional_security_group_ids" {
+  type      = list(string)
   description = "The additional rules for the cluster security group"
 }
 
