@@ -23,6 +23,12 @@ module "eks_blueprints_addons" {
     chart_version = var.external_dns_chart_version
     repository    = "https://kubernetes-sigs.github.io/external-dns/"
     namespace     = "external-dns"
+
+    set = [
+        extraArgs = [
+            "--aws-prefer-cname"
+        ]
+    ]
   }
   external_dns_route53_zone_arns = [var.external_dns_hosted_zone_arn]
 
