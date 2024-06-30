@@ -315,6 +315,6 @@ variable "cert_manager_chart_version" {
 
 variable "aws_load_balancer_controller_chart_version" {
   description = "The version of the AWS Load Balancer Controller Helm chart"
-  default     = "v2.8.1"
+  default     = "v1.8.1"
   type        = string
 }
