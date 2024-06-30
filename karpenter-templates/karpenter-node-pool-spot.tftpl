@@ -1,0 +1,18 @@
+---
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: node-spot
+spec:
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: ${spot_karpenter_node_pool_expire_after}
+  limits: ${spot_karpenter_node_pool_limits}
+  template:
+    metadata:
+      labels:
+        intent: apps
+    spec:
+      nodeClassRef:
+        name: karpenter
+      requirements: ${spot_karpenter_node_pool_requirements}

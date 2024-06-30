@@ -1,0 +1,13 @@
+replicas: ${karpenter_replicas}
+nodeSelector:
+  karpenter.sh/controller: 'true'
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - key: karpenter.sh/controller
+    operator: Exists
+    effect: NoSchedule
+settings:
+  clusterName: ${eks_cluster_name}
+  clusterEndpoint: ${eks_cluster_endpoint}
+  interruptionQueue: ${karpenter_queue_name}

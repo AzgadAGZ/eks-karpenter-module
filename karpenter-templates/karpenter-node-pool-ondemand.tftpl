@@ -1,0 +1,18 @@
+---
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: node-ondemand
+spec:
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: ${ondemand_karpenter_node_pool_expire_after}
+  limits: ${ondemand_karpenter_node_pool_limits}
+  template:
+    metadata:
+      labels:
+        intent: apps
+    spec:
+      nodeClassRef:
+        name: karpenter
+      requirements: ${ondemand_karpenter_node_pool_requirements}
