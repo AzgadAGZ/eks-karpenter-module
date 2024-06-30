@@ -122,6 +122,7 @@ variable "tags" {
 
 variable "cluster_security_group_additional_rules" {
   description = "The additional rules for the cluster security group"
+  default     = {}
 }
 
 variable "karpenter_replicas" {
