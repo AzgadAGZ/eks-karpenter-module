@@ -25,9 +25,12 @@ module "eks_blueprints_addons" {
     namespace     = "external-dns"
 
     set = [
-        extraArgs = [
-            "--aws-prefer-cname"
-        ],
+        {
+            name = "extraArgs.txt"
+            value = [
+                "--aws-prefer-cname"
+            ]
+        }
     ]
   }
   external_dns_route53_zone_arns = [var.external_dns_hosted_zone_arn]
