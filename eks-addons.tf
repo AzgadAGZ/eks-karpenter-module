@@ -26,8 +26,8 @@ module "eks_blueprints_addons" {
 
     set = [
       {
-        name = "extraArgs"
-        value = "\\[\"--aws-prefer-cname\"\\]"
+        name = "extraArgs[0]"
+        value = "[\"--aws-prefer-cname\"]"
       }
     ]
   }
