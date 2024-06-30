@@ -28,11 +28,20 @@ module "eks_blueprints_addons" {
       {
         name = "extraArgs[0]"
         value = "--aws-prefer-cname"
+      },
+      {
+        name = "extraArgs[1]"
+        value = "--txt-prefix=${}"
+        value = 
+      },
+      {
+        name = "extraArgs[2]"
+        value = "--txt-owner-id=${var.external_dns_txt_owner_id}"
       }
     ]
   }
 
-  external_dns_route53_zone_arns = [var.external_dns_hosted_zone_arn]
+  external_dns_route53_zone_arns = ["arn:aws:route53:::hostedzone/${var.external_dns_hosted_zone_id}"]
 
   tags = var.tags
 }

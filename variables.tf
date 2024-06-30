@@ -326,7 +326,18 @@ variable "external_dns_chart_version" {
   type        = string
 }
 
-variable "external_dns_hosted_zone_arn" {
-  description = "The ARN of the Route 53 hosted zone"
+variable "external_dns_hosted_zone_id" {
+  description = "The ID of the Route 53 hosted zone"
+  type        = string
+}
+
+variable "external_dns_txt_prefix" {
+  description = "The TXT prefix for the External DNS"
+  type        = string
+  default     = "pfm"
+}
+
+variable "external_dns_txt_owner_id" {
+  description = "The TXT owner ID for the External DNS"
   type        = string
 }
