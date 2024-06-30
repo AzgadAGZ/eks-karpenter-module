@@ -318,3 +318,15 @@ variable "aws_load_balancer_controller_chart_version" {
   default     = "v1.8.1"
   type        = string
 }
+
+
+variable "external_dns_chart_version" {
+  description = "The version of the External DNS Helm chart"
+  default     = "v1.14.5"
+  type        = string
+}
+
+variable "external_dns_hosted_zone_arn" {
+  description = "The ARN of the Route 53 hosted zone"
+  type        = string
+}
