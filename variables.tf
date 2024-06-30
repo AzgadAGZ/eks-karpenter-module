@@ -120,8 +120,8 @@ variable "tags" {
   default     = {}
 }
 
-variable "cluster_additional_cidr_blocks" {
-  description = "The additional security group rules for the EKS cluster"
+variable "cluster_security_group_additional_rules" {
+  description = "The additional rules for the cluster security group"
 }
 
 variable "karpenter_replicas" {

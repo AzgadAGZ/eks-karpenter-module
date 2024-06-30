@@ -37,18 +37,8 @@ module "eks" {
       most_recent = true
     }
   }
-  cluster_security_group_additional_rules = {
-    ingress_from_same_vpc = {
-      description = "HTTPS to EKS Endpoint API from same VPC"
-      protocol    = "tcp"
-      from_port   = 443
-      to_port     = 443
-      type        = "ingress"
-      cidr_blocks = [
-        var.cluster_additional_cidr_blocks
-      ]
-    }
-  }
+  
+  cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
   enable_efa_support = false
   eks_managed_node_groups = {
     karpenter = {
