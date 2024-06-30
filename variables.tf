@@ -122,6 +122,16 @@ variable "tags" {
 
 variable "cluster_security_group_additional_rules" {
   description = "The additional rules for the cluster security group"
+  type        = list(object({
+    description      = string
+    from_port        = number
+    to_port          = number
+    protocol         = string
+    cidr_blocks      = list(string)
+    security_groups  = list(string)
+    self             = bool
+    prefix_list_ids  = list(string)
+  }))
 }
 
 variable "karpenter_replicas" {
