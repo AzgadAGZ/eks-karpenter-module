@@ -334,7 +334,6 @@ variable "external_dns_hosted_zone_id" {
 variable "external_dns_txt_prefix" {
   description = "The TXT prefix for the External DNS"
   type        = string
-  default     = "pfm"
 }
 
 variable "external_dns_txt_owner_id" {
