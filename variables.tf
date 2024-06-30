@@ -127,9 +127,9 @@ variable "cluster_addons_auto_update" {
 }
 
 variable "cluster_additional_security_group_ids" {
-  type      = list(string)
+  type        = list(string)
   description = "The additional rules for the cluster security group"
-  default = []
+  default     = []
 }
 
 variable "cluster_security_group_additional_rules" {
