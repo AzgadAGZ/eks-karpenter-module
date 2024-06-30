@@ -306,3 +306,15 @@ variable "spot_karpenter_node_pool_expire_after" {
   default     = "168h0m0s"
   type        = string
 }
+
+variable "cert_manager_chart_version" {
+  description = "The version of the cert-manager Helm chart"
+  default     = "v1.15.1"
+  type        = string
+}
+
+variable "aws_load_balancer_controller_chart_version" {
+  description = "The version of the AWS Load Balancer Controller Helm chart"
+  default     = "v2.8.1"
+  type        = string
+}
