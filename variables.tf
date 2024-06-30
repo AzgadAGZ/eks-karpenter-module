@@ -120,9 +120,8 @@ variable "tags" {
   default     = {}
 }
 
-variable "cluster_security_group_additional_rules" {
+variable "cluster_additional_security_group_ids" {
   description = "The additional rules for the cluster security group"
-  default     = {}
 }
 
 variable "karpenter_replicas" {
