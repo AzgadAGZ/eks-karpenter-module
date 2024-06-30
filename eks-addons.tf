@@ -32,7 +32,6 @@ module "eks_blueprints_addons" {
       {
         name = "extraArgs[1]"
         value = "--txt-prefix=${var.external_dns_txt_prefix}"
-        value = 
       },
       {
         name = "extraArgs[2]"
