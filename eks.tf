@@ -37,7 +37,7 @@ module "eks" {
       most_recent = true
     }
   }
-  
+
   cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
   enable_efa_support = false
   eks_managed_node_groups = {
