@@ -14,7 +14,7 @@ module "eks" {
   cloudwatch_log_group_retention_in_days   = var.cloudwatch_log_group_retention_in_days
   cluster_addons = {
     coredns = {
-      most_recent = true
+      most_recent = var.cluster_addons_auto_update
       configuration_values = jsonencode({
         tolerations = [
           # Allow CoreDNS to run on the same nodes as the Karpenter controller
@@ -28,13 +28,13 @@ module "eks" {
       })
     }
     eks-pod-identity-agent = {
-      most_recent = true
+      most_recent = var.cluster_addons_auto_update
     }
     kube-proxy = {
-      most_recent = true
+      most_recent = var.cluster_addons_auto_update
     }
     vpc-cni = {
-      most_recent = true
+      most_recent = var.cluster_addons_auto_update
     }
   }
 

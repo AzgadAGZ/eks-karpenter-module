@@ -120,9 +120,23 @@ variable "tags" {
   default     = {}
 }
 
+variable "cluster_addons_auto_update" {
+  type        = bool
+  description = "Whether to enable auto-update for the cluster addons"
+  default     = true
+}
+
 variable "cluster_additional_security_group_ids" {
   type      = list(string)
   description = "The additional rules for the cluster security group"
+  default = []
+}
+
+variable "cluster_security_group_additional_rules" {
+  type        = any
+  description = "The additional rules for the cluster security group"
+  default     = {}
+
 }
 
 variable "karpenter_replicas" {
