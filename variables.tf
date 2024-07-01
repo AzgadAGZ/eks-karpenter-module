@@ -340,3 +340,8 @@ variable "external_dns_txt_owner_id" {
   description = "The TXT owner ID for the External DNS"
   type        = string
 }
+
+variable "external_dns_domain_filter" {
+  description = "The domain filter for the External DNS"
+  type        = string
+}

@@ -36,6 +36,10 @@ module "eks_blueprints_addons" {
       {
         name = "extraArgs[2]"
         value = "--txt-owner-id=${var.external_dns_txt_owner_id}"
+      },
+      {
+        name = "extraArgs[3]"
+        value = "--domain-filter=${var.external_dns_domain_filter}"
       }
     ]
   }
