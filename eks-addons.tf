@@ -15,6 +15,12 @@ module "eks_blueprints_addons" {
   enable_cert_manager   = true
   cert_manager = {
     chart_version = var.cert_manager_chart_version
+    set = [
+      {
+        name = "crds.enable"
+        value = "true"
+      }
+    ]
   }
 
   enable_external_dns = true
