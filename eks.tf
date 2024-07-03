@@ -8,7 +8,7 @@ module "eks" {
   access_entries                           = var.access_entries
   cluster_version                          = var.cluster_version
   enable_irsa                              = true
-  enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
   cluster_endpoint_public_access           = false
   authentication_mode                      = var.authentication_mode
   cloudwatch_log_group_retention_in_days   = var.cloudwatch_log_group_retention_in_days

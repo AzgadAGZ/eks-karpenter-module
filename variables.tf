@@ -345,3 +345,9 @@ variable "external_dns_domain_filter" {
   description = "The domain filter for the External DNS"
   type        = string
 }
+
+variable "enable_cluster_creator_admin_permissions" {
+  type        = bool
+  description = "Whether to enable admin permissions for the cluster creator"
+  default     = false
+}
