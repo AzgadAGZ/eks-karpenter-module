@@ -106,6 +106,7 @@ variable "enable_irsa" {
 variable "access_entries" {
   description = "List of access entries"
   default     = {}
+  type = any
 }
 
 variable "aws_region" {
