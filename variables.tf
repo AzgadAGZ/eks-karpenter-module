@@ -244,7 +244,6 @@ variable "spot_karpenter_node_pool_requirements" {
         "3",
         "4",
         "5",
-        "6"
       ]
     },
     {
