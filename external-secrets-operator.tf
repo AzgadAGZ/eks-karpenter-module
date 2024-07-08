@@ -36,7 +36,7 @@ module "eso_iam_role" {
   create_role = true
   role_name   = "external-secrets-operator-ssm-role"
 
-  provider_url = module.eks.outputs.oidc_provider
+  provider_url = module.eks.oidc_provider
 
   oidc_fully_qualified_audiences = [
     "sts.amazonaws.com"
