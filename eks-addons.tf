@@ -47,7 +47,7 @@ module "eks_blueprints_addons" {
 
   enable_metrics_server = var.enable_metrics_server
 
-  enable_cert_manager   = var.enable_cert_manager
+  enable_cert_manager = var.enable_cert_manager
   cert_manager = {
     chart_version = var.cert_manager_chart_version
     set = [
@@ -88,4 +88,15 @@ module "eks_blueprints_addons" {
 
 
   tags = var.tags
+}
+
+resource "kubectl_manifest" "eso_cluster_store" {
+  provider = kubectl
+  yaml_body = templatefile("${path.module}/external-secrets/cluster-store.tftpl", {
+    eso_cluster_store_name   = var.eso_cluster_store_name,
+    aws_region               = var.aws_region,
+    eso_service_account_name = var.eso_service_account_name,
+  })
+
+  depends_on = [module.eks_blueprints_addons]
 }

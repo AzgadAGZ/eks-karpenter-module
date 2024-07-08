@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: ${eso_cluster_store_name}
+  namespace: external-secrets
+spec:
+  provider:
+    aws:
+      service: ParameterStore
+      region: ${aws_region}
+      auth:
+        jwt:
+          serviceAccountRef:
+            name: ${eso_service_account_name}
+            namespace: external-secrets
