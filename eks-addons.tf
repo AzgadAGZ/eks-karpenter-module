@@ -80,7 +80,7 @@ module "eks_blueprints_addons" {
         value = var.eso_service_account_name
       },
       {
-        name  = "webhook.serviceAccount.annotations[0].eks.amazonaws.com~1role-arn"
+        name  = "webhook.serviceAccount.annotations.eks\\amazonaws\\com/role-arn"
         value = module.eso_iam_role.iam_role_arn
       }
     ]
