@@ -106,7 +106,7 @@ variable "enable_irsa" {
 variable "access_entries" {
   description = "List of access entries"
   default     = {}
-  type = any
+  type        = any
 }
 
 variable "aws_region" {
@@ -343,5 +343,17 @@ variable "external_dns_txt_owner_id" {
 
 variable "external_dns_domain_filter" {
   description = "The domain filter for the External DNS"
+  type        = string
+}
+
+variable "eso_service_account_name" {
+  default     = "external-secrets-operator-service-account"
+  description = "The name of the external-secrets-operator service account"
+  type        = string
+}
+
+variable "eso_cluster_store_name" {
+  default     = "external-secrets-operator-cluster-store"
+  description = "The name of the cluster store"
   type        = string
 }
