@@ -62,7 +62,7 @@ resource "kubernetes_config_map" "init_data" {
   }
 
   data = {
-    eso-role-arn             = module.eso_iam_role.arn
+    eso-role-arn             = module.eso_iam_role.iam_role_arn
     eso-service-account-name = var.eso_service_account_name
     eso-cluster-store-name   = var.eso_cluster_store_name
   }
