@@ -357,3 +357,33 @@ variable "eso_cluster_store_name" {
   description = "The name of the cluster store"
   type        = string
 }
+
+variable "enable_external_dns" {
+  description = "Whether to enable External DNS"
+  default     = true
+  type        = bool
+}
+
+variable "enable_aws_load_balancer_controller" {
+  description = "Whether to enable the AWS Load Balancer Controller"
+  default     = true
+  type        = bool
+}
+
+variable "enable_metrics_server" {
+  description = "Whether to enable the Metrics Server"
+  default     = true
+  type        = bool
+}
+
+variable "enable_cert_manager" {
+  description = "Whether to enable Cert Manager"
+  default     = true
+  type        = bool
+}
+
+variable "enable_external_secrets" {
+  description = "Whether to enable External Secrets"
+  default     = true
+  type        = bool
+}

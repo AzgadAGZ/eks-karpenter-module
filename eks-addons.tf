@@ -7,7 +7,7 @@ module "eks_blueprints_addons" {
   cluster_version   = module.eks.cluster_version
   oidc_provider_arn = module.eks.oidc_provider_arn
 
-  enable_external_dns = true
+  enable_external_dns = var.enable_external_dns
   external_dns = {
     name          = "external-dns"
     chart_version = var.external_dns_chart_version
@@ -40,14 +40,14 @@ module "eks_blueprints_addons" {
 
   external_dns_route53_zone_arns = ["arn:aws:route53:::hostedzone/${var.external_dns_hosted_zone_id}"]
 
-  enable_aws_load_balancer_controller = true
+  enable_aws_load_balancer_controller = var.enable_aws_load_balancer_controller
   aws_load_balancer_controller = {
     chart_version = var.aws_load_balancer_controller_chart_version
   }
 
-  enable_metrics_server = true
+  enable_metrics_server = var.enable_metrics_server
 
-  enable_cert_manager   = true
+  enable_cert_manager   = var.enable_cert_manager
   cert_manager = {
     chart_version = var.cert_manager_chart_version
     set = [
@@ -64,7 +64,7 @@ module "eks_blueprints_addons" {
   }
 
 
-  enable_external_secrets = true
+  enable_external_secrets = var.enable_external_secrets
   external_secrets = {
     chart_version = "0.9.20"
     namespace     = "external-secrets"
