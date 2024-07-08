@@ -30,7 +30,7 @@ module "eso_iam_policy" {
 }
 
 module "eso_iam_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.40.0"
 
   create_role = true
