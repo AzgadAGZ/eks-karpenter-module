@@ -68,3 +68,9 @@ resource "kubernetes_config_map" "init_data" {
   }
 }
 
+
+resource "aws_ssm_parameter" "eso_cluster_store_name" {
+  name  = "/platform/eso/cluster-store-name"
+  type  = "String"
+  value = var.eso_cluster_store_name
+}
