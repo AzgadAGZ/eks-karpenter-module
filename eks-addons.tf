@@ -52,6 +52,18 @@ module "eks_blueprints_addons" {
       {
         name  = "extraArgs[3]"
         value = "--domain-filter=${var.external_dns_domain_filter}"
+      },
+      {
+        name  = "extraArgs[4]"
+        value = "--provider=aws"
+      },
+      {
+        name  = "policy"
+        value = "sync"
+      },
+      {
+        name  = "nodeSelector.intent"
+        value = "apps"
       }
     ]
   }
