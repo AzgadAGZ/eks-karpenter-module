@@ -36,7 +36,7 @@ module "cert_manager_iam_policy" {
 }
 
 module "cert_manager_iam_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
   version = "5.40.0"
 
   create_role = true
@@ -49,10 +49,8 @@ module "cert_manager_iam_role" {
   role_requires_mfa = false
 
   custom_role_policy_arns = [
-
     module.cert_manager_iam_policy.arn
   ]
 
   tags = var.tags
-
 }
