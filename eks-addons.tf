@@ -13,6 +13,7 @@ module "eks_blueprints_addons" {
     chart_version = var.external_dns_chart_version
     repository    = "https://kubernetes-sigs.github.io/external-dns/"
     namespace     = "external-dns"
+    max_history   = 2
 
     set = [
       {
@@ -34,6 +35,15 @@ module "eks_blueprints_addons" {
       {
         name  = "extraArgs[3]"
         value = "--domain-filter=${var.external_dns_domain_filter}"
+      },
+      {
+        name = "tolerations[0]"
+        value = jsonencode({
+          key    = "intent"
+          operator = "Equal"
+          value  = "workload-split"
+          effect = "NoSchedule"
+        })
       }
     ]
   }
@@ -43,6 +53,7 @@ module "eks_blueprints_addons" {
   enable_aws_load_balancer_controller = var.enable_aws_load_balancer_controller
   aws_load_balancer_controller = {
     chart_version = var.aws_load_balancer_controller_chart_version
+    max_history   = 2
   }
 
   enable_metrics_server = var.enable_metrics_server
@@ -50,6 +61,7 @@ module "eks_blueprints_addons" {
   enable_cert_manager = var.enable_cert_manager
   cert_manager = {
     chart_version = var.cert_manager_chart_version
+    max_history   = 2
     set = [
       {
         name  = "revisionHistoryLimit"
@@ -68,6 +80,7 @@ module "eks_blueprints_addons" {
   external_secrets = {
     chart_version = "0.9.20"
     namespace     = "external-secrets"
+    max_history   = 2
 
     set = [
       {
