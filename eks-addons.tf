@@ -8,6 +8,14 @@ module "eks_blueprints_addons" {
   oidc_provider_arn = module.eks.oidc_provider_arn
 
   enable_external_dns = var.enable_external_dns
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
+
+    set = [
+      {
   external_dns = {
     name          = "external-dns"
     chart_version = var.external_dns_chart_version
@@ -21,19 +29,11 @@ module "eks_blueprints_addons" {
         - key: intent
           value: "workload-split"
           operator: Equal
-          effect: NoExecute
+          effect: NoSchedule
         topologySpreadConstraints:
         - labelSelector:
             matchLabels:
               app: workload-split
-          maxSkew: 1
-          topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule      
-      EOT
-    ]
-
-    set = [
-      {
         name  = "revisionHistoryLimit"
         value = 1
       },
