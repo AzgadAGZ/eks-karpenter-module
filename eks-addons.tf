@@ -13,12 +13,11 @@ module "eks_blueprints_addons" {
     chart_version = var.external_dns_chart_version
     repository    = "https://kubernetes-sigs.github.io/external-dns/"
     namespace     = "external-dns"
-    max_history   = 2
 
     values = [
         <<-EOT
         nodeSelector:
-          intent: apps
+        - intent: apps
         tolerations:
         - key: intent
           value: "workload-split"
@@ -67,7 +66,7 @@ module "eks_blueprints_addons" {
   enable_aws_load_balancer_controller = var.enable_aws_load_balancer_controller
   aws_load_balancer_controller = {
     chart_version = var.aws_load_balancer_controller_chart_version
-    max_history   = 2
+
     values = [
         <<-EOT
         nodeSelector:
@@ -86,14 +85,49 @@ module "eks_blueprints_addons" {
           whenUnsatisfiable: DoNotSchedule      
       EOT
     ]
+
+    set = [
+      {
+        name  = "revisionHistoryLimit"
+        value = 1
+      }
+    ]
   }
 
   enable_metrics_server = var.enable_metrics_server
+  metrics_server = {
+    chart_version = "3.12.1"
+    
+    values = [
+        <<-EOT
+        nodeSelector:
+          intent: apps
+        tolerations:
+        - key: intent
+          value: "workload-split"
+          operator: Equal
+          effect: NoSchedule
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: workload-split
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
+
+    set = [
+      {
+        name  = "revisionHistoryLimit"
+        value = 1
+      }
+    ]
+  }
 
   enable_cert_manager = var.enable_cert_manager
   cert_manager = {
     chart_version = var.cert_manager_chart_version
-    max_history   = 2
 
     values = [
         <<-EOT
@@ -119,10 +153,13 @@ module "eks_blueprints_addons" {
         name  = "revisionHistoryLimit"
         value = 1
       },
-
       {
         name  = "crds.enable"
         value = "true"
+      },
+      {
+        name  = "serviceAccount.name"
+        value = "cert-manager"
       }
     ]
   }
@@ -157,7 +194,6 @@ module "eks_blueprints_addons" {
         name  = "revisionHistoryLimit"
         value = 1
       },
-
       {
         name  = "webhook.serviceAccount.name"
         value = var.eso_service_account_name

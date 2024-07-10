@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 module "eso_iam_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.40.0"

@@ -387,3 +387,9 @@ variable "enable_external_secrets" {
   default     = true
   type        = bool
 }
+
+variable "metrics_server_chart_version" {
+  description = "The version of the Metrics Server Helm chart"
+  default     = "3.12.1"
+  type        = string
+}
