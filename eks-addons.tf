@@ -100,7 +100,7 @@ module "eks_blueprints_addons" {
   external_secrets = {
     chart_version = "0.9.20"
     namespace     = "external-secrets"
-    max_history   = 2
+    # max_history   = 2
 
     set = [
       {
