@@ -43,7 +43,6 @@ module "cert_manager_iam_role" {
   role_name   = "cert-manager-route53-role"
 
   trusted_role_arns = [
-    ${var.aws_region}:
     "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cert-manager",
   ]
 
