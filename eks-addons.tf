@@ -15,6 +15,23 @@ module "eks_blueprints_addons" {
     namespace     = "external-dns"
     max_history   = 2
 
+    values = [
+        <<-EOT
+        tolerations:
+        - key: intent
+          value: "workload-split"
+          operator: Equal
+          effect: NoExecute
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: workload-split
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
+
     set = [
       {
         name  = "revisionHistoryLimit"
@@ -35,15 +52,6 @@ module "eks_blueprints_addons" {
       {
         name  = "extraArgs[3]"
         value = "--domain-filter=${var.external_dns_domain_filter}"
-      },
-      {
-        name = "tolerations[0]"
-        value = jsonencode({
-          key    = "intent"
-          operator = "Equal"
-          value  = "workload-split"
-          effect = "NoSchedule"
-        })
       }
     ]
   }
