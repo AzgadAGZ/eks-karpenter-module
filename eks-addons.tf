@@ -17,6 +17,8 @@ module "eks_blueprints_addons" {
 
     values = [
         <<-EOT
+        nodeSelector:
+          intent: apps
         tolerations:
         - key: intent
           value: "workload-split"
@@ -56,14 +58,6 @@ module "eks_blueprints_addons" {
       {
         name  = "extraArgs[4]"
         value = "--provider=aws"
-      },
-      {
-        name  = "policy"
-        value = "sync"
-      },
-      {
-        name  = "nodeSelector.intent"
-        value = "apps"
       }
     ]
   }
@@ -74,6 +68,24 @@ module "eks_blueprints_addons" {
   aws_load_balancer_controller = {
     chart_version = var.aws_load_balancer_controller_chart_version
     max_history   = 2
+    values = [
+        <<-EOT
+        nodeSelector:
+          intent: apps
+        tolerations:
+        - key: intent
+          value: "workload-split"
+          operator: Equal
+          effect: NoSchedule
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: workload-split
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
   }
 
   enable_metrics_server = var.enable_metrics_server
@@ -82,6 +94,26 @@ module "eks_blueprints_addons" {
   cert_manager = {
     chart_version = var.cert_manager_chart_version
     max_history   = 2
+
+    values = [
+        <<-EOT
+        nodeSelector:
+          intent: apps
+        tolerations:
+        - key: intent
+          value: "workload-split"
+          operator: Equal
+          effect: NoSchedule
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: workload-split
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
+
     set = [
       {
         name  = "revisionHistoryLimit"
@@ -100,7 +132,25 @@ module "eks_blueprints_addons" {
   external_secrets = {
     chart_version = "0.9.20"
     namespace     = "external-secrets"
-    # max_history   = 2
+
+    values = [
+        <<-EOT
+        nodeSelector:
+          intent: apps
+        tolerations:
+        - key: intent
+          value: "workload-split"
+          operator: Equal
+          effect: NoSchedule
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: workload-split
+          maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
+    ]
 
     set = [
       {
