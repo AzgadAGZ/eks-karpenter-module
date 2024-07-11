@@ -201,7 +201,7 @@ variable "ondemand_karpenter_node_pool_requirements" {
     {
       "key" : "karpenter.k8s.aws/instance-size",
       "operator" : "In"
-      "values" : ["nano", "micro", "small", "medium", "large", "xlarge"]
+      "values" : ["medium", "large", "xlarge"]
     },
     {
       "key" : "karpenter.k8s.aws/instance-generation",
@@ -281,7 +281,7 @@ variable "spot_karpenter_node_pool_requirements" {
     {
       "key" : "karpenter.k8s.aws/instance-size",
       "operator" : "In"
-      "values" : ["nano", "micro", "small", "medium", "large", "xlarge"]
+      "values" : ["medium", "large", "xlarge"]
     },
     {
       "key" : "karpenter.k8s.aws/instance-generation",
@@ -309,7 +309,7 @@ variable "spot_karpenter_node_pool_expire_after" {
 
 variable "cert_manager_chart_version" {
   description = "The version of the cert-manager Helm chart"
-  default     = "v1.15.1"
+  default     = "1.15.1"
   type        = string
 }
 

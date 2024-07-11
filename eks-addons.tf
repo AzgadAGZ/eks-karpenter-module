@@ -15,9 +15,9 @@ module "eks_blueprints_addons" {
     namespace     = "external-dns"
 
     values = [
-        <<-EOT
+      <<-EOT
         nodeSelector:
-        - intent: apps
+          intent: apps
         tolerations:
         - key: intent
           value: "workload-split"
@@ -53,10 +53,6 @@ module "eks_blueprints_addons" {
       {
         name  = "extraArgs[3]"
         value = "--domain-filter=${var.external_dns_domain_filter}"
-      },
-      {
-        name  = "extraArgs[4]"
-        value = "--provider=aws"
       }
     ]
   }
@@ -68,7 +64,7 @@ module "eks_blueprints_addons" {
     chart_version = var.aws_load_balancer_controller_chart_version
 
     values = [
-        <<-EOT
+      <<-EOT
         nodeSelector:
           intent: apps
         tolerations:
@@ -97,9 +93,9 @@ module "eks_blueprints_addons" {
   enable_metrics_server = var.enable_metrics_server
   metrics_server = {
     chart_version = "3.12.1"
-    
+
     values = [
-        <<-EOT
+      <<-EOT
         nodeSelector:
           intent: apps
         tolerations:
@@ -130,7 +126,7 @@ module "eks_blueprints_addons" {
     chart_version = var.cert_manager_chart_version
 
     values = [
-        <<-EOT
+      <<-EOT
         nodeSelector:
           intent: apps
         tolerations:
@@ -144,7 +140,52 @@ module "eks_blueprints_addons" {
               app: workload-split
           maxSkew: 1
           topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule      
+          whenUnsatisfiable: DoNotSchedule  
+        webhook:
+          nodeSelector:
+            intent: apps
+          tolerations:
+          - key: intent
+            value: "workload-split"
+            operator: Equal
+            effect: NoSchedule
+          topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app: workload-split
+            maxSkew: 1
+            topologyKey: capacity-spread
+            whenUnsatisfiable: DoNotSchedule
+        cainjector:
+          nodeSelector:
+            intent: apps
+          tolerations:
+          - key: intent
+            value: "workload-split"
+            operator: Equal
+            effect: NoSchedule
+          topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app: workload-split
+            maxSkew: 1
+            topologyKey: capacity-spread
+            whenUnsatisfiable: DoNotSchedule
+        startupapicheck:
+          nodeSelector:
+            intent: apps
+          tolerations:
+          - key: intent
+            value: "workload-split"
+            operator: Equal
+            effect: NoSchedule
+          topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app: workload-split
+            maxSkew: 1
+            topologyKey: capacity-spread
+            whenUnsatisfiable: DoNotSchedule    
       EOT
     ]
 
@@ -163,7 +204,7 @@ module "eks_blueprints_addons" {
       },
       {
         name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-        value = module.cert_manager_iam_role.iam_role_arn
+        value = aws_iam_role.cert_manager_iam_role.arn
       }
     ]
   }
@@ -171,25 +212,26 @@ module "eks_blueprints_addons" {
 
   enable_external_secrets = var.enable_external_secrets
   external_secrets = {
-    chart_version = "0.9.20"
+    chart_version = "v0.9.19"
     namespace     = "external-secrets"
 
     values = [
-        <<-EOT
-        nodeSelector:
-          intent: apps
-        tolerations:
-        - key: intent
-          value: "workload-split"
-          operator: Equal
-          effect: NoSchedule
-        topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app: workload-split
-          maxSkew: 1
-          topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule      
+      <<-EOT
+        global:
+          nodeSelector:
+            intent: apps
+          tolerations:
+          - key: intent
+            value: "workload-split"
+            operator: Equal
+            effect: NoSchedule
+          topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app: workload-split
+            maxSkew: 1
+            topologyKey: capacity-spread
+            whenUnsatisfiable: DoNotSchedule      
       EOT
     ]
 
@@ -215,7 +257,7 @@ module "eks_blueprints_addons" {
 
 resource "kubectl_manifest" "eso_cluster_store" {
   provider = kubectl
-  yaml_body = templatefile("${path.module}/external-secrets/cluster-store.tftpl", {
+  yaml_body = templatefile("${path.module}/external-secrets-templates/cluster-store.tftpl", {
     eso_cluster_store_name   = var.eso_cluster_store_name,
     aws_region               = var.aws_region,
     eso_service_account_name = var.eso_service_account_name,
