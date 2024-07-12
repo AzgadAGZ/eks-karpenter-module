@@ -415,8 +415,3 @@ variable "cert_manager_r53_zone_id" {
   description = "The Route 53 zone ID for the cert-manager"
   type        = string
 }
-
-variable "cert_manager_r53_role_arn" {
-  description = "The Route 53 role ARN for the cert-manager"
-  type        = string
-}

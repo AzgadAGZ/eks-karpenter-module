@@ -274,7 +274,7 @@ resource "kubectl_manifest" "cert_manager_cluster_issuer" {
     dns_zone = var.cert_manager_dns_zone,
     aws_region = var.aws_region,
     hosted_zone_id = var.cert_manager_r53_zone_id,
-    role_arn = var.cert_manager_r53_role_arn,
+    role_arn = aws_iam_role.cert_manager_iam_role.arn,
   })
 
   depends_on = [module.eks_blueprints_addons]
