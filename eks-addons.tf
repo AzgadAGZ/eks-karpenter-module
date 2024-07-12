@@ -205,6 +205,10 @@ module "eks_blueprints_addons" {
       {
         name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
         value = aws_iam_role.cert_manager_iam_role.arn
+      },
+      {
+        name = "securityContext.fsGroup"
+        value = 1001
       }
     ]
   }
@@ -251,8 +255,11 @@ module "eks_blueprints_addons" {
     ]
   }
 
-
   tags = var.tags
+
+  depends_on = [
+    aws_iam_role.cert_manager_iam_role
+  ]
 }
 
 resource "kubectl_manifest" "eso_cluster_store" {
