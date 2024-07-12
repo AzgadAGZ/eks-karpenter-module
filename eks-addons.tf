@@ -212,7 +212,7 @@ module "eks_blueprints_addons" {
 
   enable_external_secrets = var.enable_external_secrets
   external_secrets = {
-    chart_version = "v0.9.19"
+    chart_version = "0.9.20"
     namespace     = "external-secrets"
 
     values = [
@@ -261,6 +261,20 @@ resource "kubectl_manifest" "eso_cluster_store" {
     eso_cluster_store_name   = var.eso_cluster_store_name,
     aws_region               = var.aws_region,
     eso_service_account_name = var.eso_service_account_name,
+  })
+
+  depends_on = [module.eks_blueprints_addons]
+}
+
+resource "kubectl_manifest" "cert_manager_cluster_issuer" {
+  provider = kubectl
+  yaml_body = templatefile("${path.module}/cert-manager-templates/cluster-issuer.tftpl", {
+    cluster_issuer_name   = var.cert_manager_cluster_issuer_name,
+    cluster_issuer_server               = var.cert_manager_cluster_issuer_server,
+    dns_zone = var.cert_manager_dns_zone,
+    aws_region = var.aws_region,
+    hosted_zone_id = var.cert_manager_r53_zone_id,
+    role_arn = var.cert_manager_r53_role_arn,
   })
 
   depends_on = [module.eks_blueprints_addons]

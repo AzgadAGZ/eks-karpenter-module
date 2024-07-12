@@ -393,3 +393,30 @@ variable "metrics_server_chart_version" {
   default     = "3.12.1"
   type        = string
 }
+
+
+variable "cert_manager_cluster_issuer_name" {
+  description = "The name of the Cluster Issuer"
+  type        = string
+}
+
+variable "cert_manager_cluster_issuer_server" {
+  description = "The server of the Cluster Issuer"
+  type        = string
+  default     = "https://acme-v02.api.letsencrypt.org/directory"
+}
+
+variable "cert_manager_dns_zone" {
+  description = "The DNS zone for the cert-manager"
+  type        = string
+}
+
+variable "cert_manager_r53_zone_id" {
+  description = "The Route 53 zone ID for the cert-manager"
+  type        = string
+}
+
+variable "cert_manager_r53_role_arn" {
+  description = "The Route 53 role ARN for the cert-manager"
+  type        = string
+}

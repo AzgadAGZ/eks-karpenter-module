@@ -1,8 +1,5 @@
 # gitops-eks-karpenter-module
 
-# Post Activities if necessary
-https://argocd-autopilot.readthedocs.io/en/stable/Getting-Started/
-
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

@@ -64,10 +64,11 @@ resource "aws_iam_role" "cert_manager_iam_role" {
 }
 
 
-resource "aws_iam_policy_attachment" "test-attach" {
-  name = "test-attachment"
+resource "aws_iam_policy_attachment" "cert_manager_role_attachment" {
+  name = "cert_manager_role_attachment"
   roles = [
     aws_iam_role.cert_manager_iam_role.name
   ]
   policy_arn = module.cert_manager_iam_policy.arn
 }
+
