@@ -69,6 +69,8 @@ module "eks" {
 }
 
 
+resource ""
+
 resource "kubernetes_secret" "eks_clusters" {
   for_each = var.workload_eks_clusters
   metadata = {
@@ -87,9 +89,9 @@ resource "kubernetes_secret" "eks_clusters" {
   
 
   data = {
-    "config" = each.value.config
     "name" = each.key
-    "server" = each.value.server
+    "config" = data.aws_ssm_parameter.clusters_config_secret[each.key].value
+    "server" = data.aws_ssm_parameter.clusters_server_secret[each.key].value
   }
 
   type = "Opaque"
