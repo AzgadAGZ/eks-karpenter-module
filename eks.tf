@@ -92,7 +92,7 @@ resource "kubernetes_secret" "eks_clusters" {
       "argocd.argoproj.io/secret-type": "cluster"
     }
 
-    anotattion = {
+    annotations = {
       "managed-by": "argocd.argoproj.io"
     }
   }
