@@ -83,7 +83,8 @@ resource "aws_ssm_parameter" "eks_cluster_ca" {
 
 resource "kubernetes_secret" "eks_clusters" {
   for_each = var.workload_eks_clusters
-  metadata = {
+
+  metadata {
     name = "${each.key}-cluster"
     namespace = "argocd"
 
