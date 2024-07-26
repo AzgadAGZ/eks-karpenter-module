@@ -70,7 +70,7 @@ module "eks" {
 
 
 resource "kubernetes_secret" "eks_clusters" {
-  for_each = var.eks_clusters
+  for_each = var.workload_eks_clusters
   metadata = {
     name = "${each.key}-cluster"
     namespace = "argocd"
