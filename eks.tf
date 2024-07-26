@@ -81,29 +81,29 @@ resource "aws_ssm_parameter" "eks_cluster_ca" {
   value = module.eks.cluster_certificate_authority_data
 }
 
-# resource "kubernetes_secret" "eks_clusters" {
-#   for_each = var.workload_eks_clusters
-#   metadata = {
-#     name = "${each.key}-cluster"
-#     namespace = "argocd"
+resource "kubernetes_secret" "eks_clusters" {
+  for_each = var.workload_eks_clusters
+  metadata = {
+    name = "${each.key}-cluster"
+    namespace = "argocd"
 
-#     labels = {
-#       "argocd.argoproj.io/secret-type": "cluster"
-#     }
+    labels = {
+      "argocd.argoproj.io/secret-type": "cluster"
+    }
 
-#     anotattion = {
-#       "managed-by": "argocd.argoproj.io"
-#     }
-#   }
+    anotattion = {
+      "managed-by": "argocd.argoproj.io"
+    }
+  }
 
   
 
-#   data = {
-#     "name" = each.key
-#     "config" = data.aws_ssm_parameter.clusters_config_secret[each.key].value
-#     "server" = data.aws_ssm_parameter.clusters_server_secret[each.key].value
-#   }
+  data = {
+    "name" = each.key
+    "config" = data.aws_ssm_parameter.clusters_config_secret[each.key].value
+    "server" = data.aws_ssm_parameter.clusters_server_secret[each.key].value
+  }
 
-#   type = "Opaque"
-# }
+  type = "Opaque"
+}
 
