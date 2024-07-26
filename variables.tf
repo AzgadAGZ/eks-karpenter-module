@@ -415,3 +415,13 @@ variable "cert_manager_r53_zone_id" {
   description = "The Route 53 zone ID for the cert-manager"
   type        = string
 }
+
+
+variable "eks_clusters" {
+  description = "The list of EKS clusters"
+  type        = map(object({
+    config = string
+    server = string
+  }))
+  default = {}
+}

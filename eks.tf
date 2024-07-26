@@ -67,3 +67,31 @@ module "eks" {
       "karpenter.sh/discovery" = "${var.cluster_name}"
   })
 }
+
+
+resource "kubernetes_secret" "eks_clusters" {
+  for_each = var.eks_clusters
+  metadata = {
+    name = "${each.key}-cluster"
+    namespace = "argocd"
+
+    labels = {
+      "argocd.argoproj.io/secret-type": "cluster"
+    }
+
+    anotattion = {
+      "managed-by": "argocd.argoproj.io"
+    }
+  }
+
+  
+
+  data = {
+    "config" = each.value.config
+    "name" = each.key
+    "server" = each.value.server
+  }
+
+  type = "Opaque"
+}
+
