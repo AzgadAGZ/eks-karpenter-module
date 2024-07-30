@@ -127,6 +127,15 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
+        revisionHistoryLimit: 1
+        crds:
+          enable: true
+        serviceAccount:
+          name: cert-manager
+          annotations:
+            eks.amazonaws.com/role-arn: ${aws_iam_role.cert_manager_iam_role.arn}
+        securityContext:
+          fsGroup: 1001
         nodeSelector:
           intent: apps
         tolerations:
@@ -189,28 +198,28 @@ module "eks_blueprints_addons" {
       EOT
     ]
 
-    set = [
-      {
-        name  = "revisionHistoryLimit"
-        value = 1
-      },
-      {
-        name  = "crds.enable"
-        value = "true"
-      },
-      {
-        name  = "serviceAccount.name"
-        value = "cert-manager"
-      },
-      {
-        name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-        value = aws_iam_role.cert_manager_iam_role.arn
-      },
-      {
-        name = "securityContext.fsGroup"
-        value = 1001
-      }
-    ]
+    # set = [
+    #   {
+    #     name  = "revisionHistoryLimit"
+    #     value = 1
+    #   },
+    #   {
+    #     name  = "crds.enable"
+    #     value = "true"
+    #   },
+    #   {
+    #     name  = "serviceAccount.name"
+    #     value = "cert-manager"
+    #   },
+    #   {
+    #     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    #     value = aws_iam_role.cert_manager_iam_role.arn
+    #   },
+    #   {
+    #     name = "securityContext.fsGroup"
+    #     value = 1001
+    #   }
+    # ]
   }
 
 
