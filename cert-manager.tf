@@ -53,7 +53,7 @@ resource "aws_iam_role" "cert_manager_iam_role" {
         }
         Condition = {
           ArnLike = {
-            "aws:PrincipalArn" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cert-manager"
+            "aws:PrincipalArn" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cert-manager-*"
           }
         }
       },
