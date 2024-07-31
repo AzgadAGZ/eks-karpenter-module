@@ -11,3 +11,5 @@ settings:
   clusterName: ${eks_cluster_name}
   clusterEndpoint: ${eks_cluster_endpoint}
   interruptionQueue: ${karpenter_queue_name}
+  featureGates:
+    spotToSpotConsolidation: true
