@@ -90,9 +90,9 @@ module "eks_blueprints_addons" {
     ]
   }
 
-  enable_nginx_ingress = var.enable_nginx_ingress
-  nginx_ingress = {
-    chart_version = var.nginx_ingress_chart_version
+  enable_ingress_nginx = var.enable_ingress_nginx
+  ingress_nginx = {
+    chart_version = var.ingress_nginx_chart_version
 
     values = [
       <<-EOT
