@@ -419,9 +419,6 @@ variable "cert_manager_r53_zone_id" {
 
 variable "workload_eks_clusters" {
   description = "The list of EKS clusters"
-  type        = map(object({
-    config = string
-    server = string
-  }))
-  default = {}
+  type        = list(string)
+  default     = []
 }
