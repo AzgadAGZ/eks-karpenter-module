@@ -90,38 +90,6 @@ module "eks_blueprints_addons" {
     ]
   }
 
-  enable_ingress_nginx = var.enable_ingress_nginx
-  ingress_nginx = {
-    chart_version = var.ingress_nginx_chart_version
-
-    values = [
-      <<-EOT
-        controller:
-          nodeSelector:
-            intent: apps
-          tolerations:
-          - key: intent
-            value: "workload-split"
-            operator: Equal
-            effect: NoSchedule
-          topologySpreadConstraints:
-          - labelSelector:
-              matchLabels:
-                app: workload-split
-            maxSkew: 1
-            topologyKey: capacity-spread
-            whenUnsatisfiable: DoNotSchedule      
-      EOT
-    ]
-
-    set = [
-      {
-        name  = "revisionHistoryLimit"
-        value = 1
-      }
-    ]
-  }
-
   enable_metrics_server = var.enable_metrics_server
   metrics_server = {
     chart_version = "3.12.1"
