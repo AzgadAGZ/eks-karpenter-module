@@ -426,7 +426,7 @@ variable "workload_eks_clusters" {
   default = {}
 }
 
-variable "enable_ingress_nginx" {
+variable "enable_nginx_ingress" {
   description = "Whether to enable Ingress Nginx"
   default     = false
   type        = bool
