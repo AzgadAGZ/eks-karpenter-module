@@ -425,3 +425,15 @@ variable "workload_eks_clusters" {
   }))
   default = {}
 }
+
+variable "enable_ingress_nginx" {
+  description = "Whether to enable Ingress Nginx"
+  default     = false
+  type        = bool
+}
+
+variable "nginx_ingress_chart_version" {
+  description = "The version of the Nginx Ingress Helm chart"
+  default     = "4.6.1"
+  type        = string
+}
