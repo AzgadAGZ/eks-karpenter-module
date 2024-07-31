@@ -82,7 +82,7 @@ resource "aws_ssm_parameter" "eks_cluster_ca" {
 }
 
 resource "kubernetes_secret" "eks_clusters" {
-  for_each = var.workload_eks_clusters
+  for_each = toset(var.workload_eks_clusters)
 
   metadata {
     name = "${each.key}-cluster"
