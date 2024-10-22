@@ -140,6 +140,12 @@ variable "cluster_security_group_additional_rules" {
 
 }
 
+variable "node_security_group_additional_rules" {
+  type        = any
+  description = "The additional rules for the node security group"
+  default     = {}
+}
+
 variable "karpenter_replicas" {
   description = "The number of Karpenter replicas"
   default     = 1

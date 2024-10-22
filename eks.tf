@@ -39,6 +39,7 @@ module "eks" {
   }
 
   cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
+  node_security_group_additional_rules = var.node_security_group_additional_rules
   enable_efa_support                      = false
   eks_managed_node_groups = {
     karpenter = {
