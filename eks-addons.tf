@@ -68,6 +68,10 @@ module "eks_blueprints_addons" {
         nodeSelector:
           intent: apps
         tolerations:
+        - key: karpenter.sh/controller
+          value: "true"
+          operator: Equal
+          effect: NoSchedule
         - key: intent
           value: "workload-split"
           operator: Equal
