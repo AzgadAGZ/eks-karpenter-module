@@ -5,6 +5,8 @@ metadata:
   name: karpenter
 spec:
   amiFamily: ${karpenter_ami_family_class}
+  amiSelectorTerms:
+    - name: ${karpenter_ami_family_class}
   role: ${karpenter_node_role_name}
   subnetSelectorTerms:
     - tags:
