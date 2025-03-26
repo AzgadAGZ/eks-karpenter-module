@@ -5,7 +5,7 @@ metadata:
   name: node-ondemand
 spec:
   disruption:
-    consolidationPolicy: WhenUnderutilized
+    consolidationPolicy: WhenEmptyOrUnderutilized
     expireAfter: ${ondemand_karpenter_node_pool_expire_after}
   limits: ${ondemand_karpenter_node_pool_limits}
   template:
@@ -14,7 +14,10 @@ spec:
         intent: apps
     spec:
       nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
         name: karpenter
+
       requirements: ${ondemand_karpenter_node_pool_requirements}
       taints:
       - effect: NoSchedule
