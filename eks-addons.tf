@@ -16,18 +16,8 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
-        nodeSelector:
-          intent: apps
-        tolerations:
-        - key: intent
-          value: "workload-split"
-          operator: Equal
-          effect: NoSchedule
         topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app: workload-split
-          maxSkew: 1
+        - maxSkew: 1
           topologyKey: capacity-spread
           whenUnsatisfiable: DoNotSchedule      
       EOT
@@ -65,13 +55,6 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
-        nodeSelector:
-          intent: apps
-        tolerations:
-        - key: intent
-          value: "workload-split"
-          operator: Equal
-          effect: NoSchedule
         topologySpreadConstraints:
         - labelSelector:
             matchLabels:
@@ -96,18 +79,8 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
-        nodeSelector:
-          intent: apps
-        tolerations:
-        - key: intent
-          value: "workload-split"
-          operator: Equal
-          effect: NoSchedule
         topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app: workload-split
-          maxSkew: 1
+        - maxSkew: 1
           topologyKey: capacity-spread
           whenUnsatisfiable: DoNotSchedule      
       EOT
@@ -136,90 +109,27 @@ module "eks_blueprints_addons" {
             eks.amazonaws.com/role-arn: ${aws_iam_role.cert_manager_iam_role.arn}
         securityContext:
           fsGroup: 1001
-        nodeSelector:
-          intent: apps
-        tolerations:
-        - key: intent
-          value: "workload-split"
-          operator: Equal
-          effect: NoSchedule
         topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app: workload-split
-          maxSkew: 1
+        - maxSkew: 1
           topologyKey: capacity-spread
           whenUnsatisfiable: DoNotSchedule  
         webhook:
-          nodeSelector:
-            intent: apps
-          tolerations:
-          - key: intent
-            value: "workload-split"
-            operator: Equal
-            effect: NoSchedule
           topologySpreadConstraints:
-          - labelSelector:
-              matchLabels:
-                app: workload-split
-            maxSkew: 1
+          - maxSkew: 1
             topologyKey: capacity-spread
             whenUnsatisfiable: DoNotSchedule
         cainjector:
-          nodeSelector:
-            intent: apps
-          tolerations:
-          - key: intent
-            value: "workload-split"
-            operator: Equal
-            effect: NoSchedule
           topologySpreadConstraints:
-          - labelSelector:
-              matchLabels:
-                app: workload-split
-            maxSkew: 1
+          - maxSkew: 1
             topologyKey: capacity-spread
             whenUnsatisfiable: DoNotSchedule
         startupapicheck:
-          nodeSelector:
-            intent: apps
-          tolerations:
-          - key: intent
-            value: "workload-split"
-            operator: Equal
-            effect: NoSchedule
           topologySpreadConstraints:
-          - labelSelector:
-              matchLabels:
-                app: workload-split
-            maxSkew: 1
+          - maxSkew: 1
             topologyKey: capacity-spread
             whenUnsatisfiable: DoNotSchedule    
       EOT
     ]
-
-    # set = [
-    #   {
-    #     name  = "revisionHistoryLimit"
-    #     value = 1
-    #   },
-    #   {
-    #     name  = "crds.enable"
-    #     value = "true"
-    #   },
-    #   {
-    #     name  = "serviceAccount.name"
-    #     value = "cert-manager"
-    #   },
-    #   {
-    #     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    #     value = aws_iam_role.cert_manager_iam_role.arn
-    #   },
-    #   {
-    #     name = "securityContext.fsGroup"
-    #     value = 1001
-    #   }
-    # ]
   }
 
 
@@ -231,18 +141,8 @@ module "eks_blueprints_addons" {
     values = [
       <<-EOT
         global:
-          nodeSelector:
-            intent: apps
-          tolerations:
-          - key: intent
-            value: "workload-split"
-            operator: Equal
-            effect: NoSchedule
           topologySpreadConstraints:
-          - labelSelector:
-              matchLabels:
-                app: workload-split
-            maxSkew: 1
+          - maxSkew: 1
             topologyKey: capacity-spread
             whenUnsatisfiable: DoNotSchedule      
       EOT
