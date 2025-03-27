@@ -16,7 +16,3 @@ spec:
       nodeClassRef:
         name: karpenter
       requirements: ${spot_karpenter_node_pool_requirements}
-      taints:
-      - effect: NoSchedule
-        key: intent
-        value: workload-split
