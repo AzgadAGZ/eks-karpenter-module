@@ -61,12 +61,9 @@ module "eks_blueprints_addons" {
           operator: Equal
           effect: NoSchedule
         topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app: workload-split
-          maxSkew: 1
+        - maxSkew: 1
           topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule      
+          whenUnsatisfiable: ScheduleAnyway      
       EOT
     ]
 
