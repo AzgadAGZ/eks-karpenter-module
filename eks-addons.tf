@@ -55,6 +55,11 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
+        tolerations:
+        - key: "karpenter.sh/controller"
+          value: "true"
+          operator: Equal
+          effect: NoSchedule
         topologySpreadConstraints:
         - labelSelector:
             matchLabels:
