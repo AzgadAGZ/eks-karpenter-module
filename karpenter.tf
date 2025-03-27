@@ -31,6 +31,49 @@ resource "helm_release" "karpenter" {
   ]
 }
 
+
+resource "helm_release" "karpenter_crd" {
+  namespace  = "kube-system"
+  name       = "karpenter-crd"
+  repository = "oci://public.ecr.aws/karpenter"
+  chart      = "karpenter-crd"
+  version    = "0.37.7"
+  wait       = true
+
+  set {
+    name  = "webhook.enabled"
+    value = "true"
+  }
+  set {
+    name  = "webhook.serviceName"
+    value = "karpenter"
+  }
+  set {
+    name  = "webhook.port"
+    value = "8443"
+  }
+}
+
+resource "helm_release" "karpenter" {
+  namespace  = "kube-system"
+  name       = "karpenter"
+  repository = "oci://public.ecr.aws/karpenter"
+  chart      = "karpenter"
+  version    = "1.0.9"
+  skip_crds  = true
+  wait       = true
+
+  values = [
+    templatefile("${path.module}/karpenter-templates/karpenter-setup.tftpl", {
+      eks_cluster_name     = module.eks.cluster_name,
+      eks_cluster_endpoint = module.eks.cluster_endpoint,
+      karpenter_queue_name = module.karpenter.queue_name,
+      karpenter_replicas   = var.karpenter_replicas
+    })
+  ]
+  depends_on = [helm_release.karpenter_crd]
+}
+
 resource "kubectl_manifest" "karpenter_ec2_node_class" {
   provider = kubectl
   yaml_body = templatefile("${path.module}/karpenter-templates/karpenter-ec2-node-class.tftpl", {
@@ -38,6 +81,8 @@ resource "kubectl_manifest" "karpenter_ec2_node_class" {
     karpenter_node_role_name   = module.karpenter.node_iam_role_name,
     eks_cluster_name           = module.eks.cluster_name
   })
+
+  depends_on = [ helm_release.karpenter ]
 }
 
 resource "kubectl_manifest" "karpenter_node_pool_spot" {
