@@ -13,24 +13,6 @@ module "karpenter" {
   tags = var.tags
 }
 
-resource "helm_release" "karpenter" {
-  namespace  = "kube-system"
-  name       = "karpenter"
-  repository = "oci://public.ecr.aws/karpenter"
-  chart      = "karpenter"
-  version    = "0.37.7"
-  wait       = false
-
-  values = [
-    templatefile("${path.module}/karpenter-templates/karpenter-setup.tftpl", {
-      eks_cluster_name     = module.eks.cluster_name,
-      eks_cluster_endpoint = module.eks.cluster_endpoint,
-      karpenter_queue_name = module.karpenter.queue_name,
-      karpenter_replicas   = var.karpenter_replicas
-    })
-  ]
-}
-
 
 resource "helm_release" "karpenter_crd" {
   namespace  = "kube-system"
