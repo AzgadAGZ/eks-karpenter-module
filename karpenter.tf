@@ -9,6 +9,7 @@ module "karpenter" {
   node_iam_role_use_name_prefix   = false
   node_iam_role_name              = var.cluster_name
   create_pod_identity_association = true
+  enable_v1_permissions = true
 
   tags = var.tags
 }
@@ -19,7 +20,7 @@ resource "helm_release" "karpenter_crd" {
   name       = "karpenter-crd"
   repository = "oci://public.ecr.aws/karpenter"
   chart      = "karpenter-crd"
-  version    = "0.37.7"
+  version    = "1.0.9"
   wait       = true
 
   set {
