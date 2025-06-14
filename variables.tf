@@ -315,20 +315,20 @@ variable "spot_karpenter_node_pool_expire_after" {
 
 variable "cert_manager_chart_version" {
   description = "The version of the cert-manager Helm chart"
-  default     = "1.15.1"
+  default     = "1.18.0"
   type        = string
 }
 
 variable "aws_load_balancer_controller_chart_version" {
   description = "The version of the AWS Load Balancer Controller Helm chart"
-  default     = "v1.8.1"
+  default     = "v1.13.2"
   type        = string
 }
 
 
 variable "external_dns_chart_version" {
   description = "The version of the External DNS Helm chart"
-  default     = "v1.14.5"
+  default     = "v1.16.1"
   type        = string
 }
 
@@ -396,7 +396,7 @@ variable "enable_external_secrets" {
 
 variable "metrics_server_chart_version" {
   description = "The version of the Metrics Server Helm chart"
-  default     = "3.12.1"
+  default     = "3.12.2"
   type        = string
 }
 
@@ -428,3 +428,16 @@ variable "workload_eks_clusters" {
   type        = list(string)
   default     = []
 }
+
+variable "enable_aws_efs_csi_driver" {
+  description = "Whether to enable the AWS EFS CSI driver"
+  default     = true
+  type        = bool
+}
+
+variable "aws_efs_csi_driver_chart_version" {
+  description = "The version of the AWS EFS CSI driver Helm chart"
+  default     = "v2.1.8"
+  type        = string
+}
+

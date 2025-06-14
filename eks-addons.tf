@@ -1,6 +1,6 @@
 module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
-  version = "~> 1.16.3" #ensure to update this to the latest/desired version
+  version = "~> 1.21.0" #ensure to update this to the latest/desired version
 
   cluster_name      = module.eks.cluster_name
   cluster_endpoint  = module.eks.cluster_endpoint
@@ -77,7 +77,7 @@ module "eks_blueprints_addons" {
 
   enable_metrics_server = var.enable_metrics_server
   metrics_server = {
-    chart_version = "3.12.1"
+    chart_version = var.metrics_server_chart_version
 
     values = [
       <<-EOT
@@ -163,6 +163,22 @@ module "eks_blueprints_addons" {
         name  = "webhook.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
         value = module.eso_iam_role.iam_role_arn
       }
+    ]
+  }
+
+
+  enable_aws_efs_csi_driver = var.enable_aws_efs_csi_driver
+  aws_efs_csi_driver = {
+    chart_version = var.aws_efs_csi_driver_chart_version
+    namespace     = "aws-efs-csi-driver"
+
+    values = [
+      <<-EOT
+        topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule      
+      EOT
     ]
   }
 
