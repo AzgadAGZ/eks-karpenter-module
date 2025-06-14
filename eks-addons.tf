@@ -102,9 +102,6 @@ module "eks_blueprints_addons" {
 
     values = [
       <<-EOT
-        revisionHistoryLimit: 1
-        crds:
-          enable: true
         serviceAccount:
           name: cert-manager
           annotations:
@@ -125,11 +122,6 @@ module "eks_blueprints_addons" {
           - maxSkew: 1
             topologyKey: capacity-spread
             whenUnsatisfiable: DoNotSchedule
-        startupapicheck:
-          topologySpreadConstraints:
-          - maxSkew: 1
-            topologyKey: capacity-spread
-            whenUnsatisfiable: DoNotSchedule    
       EOT
     ]
   }
@@ -170,7 +162,6 @@ module "eks_blueprints_addons" {
   enable_aws_efs_csi_driver = var.enable_aws_efs_csi_driver
   aws_efs_csi_driver = {
     chart_version = var.aws_efs_csi_driver_chart_version
-    namespace     = "aws-efs-csi-driver"
 
     values = [
       <<-EOT
