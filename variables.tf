@@ -437,7 +437,7 @@ variable "enable_aws_efs_csi_driver" {
 
 variable "aws_efs_csi_driver_chart_version" {
   description = "The version of the AWS EFS CSI driver Helm chart"
-  default     = "v2.1.8"
+  default     = "2.3.6"
   type        = string
 }
 
